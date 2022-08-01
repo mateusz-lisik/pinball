@@ -56,10 +56,10 @@ Config * Config::getInstance() {
 
 void Config::setDefault() {
   // Default values
-  this->setSize(640, 480);
+  this->setSize(800, 600);
   this->setSound(8);
   this->setMusic(8);
-  this->setBpp(16);
+  this->setBpp(32);
   this->setGLFilter(EM_LINEAR);
   this->setView(0);
   this->setFullScreen(false);
