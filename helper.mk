@@ -271,6 +271,10 @@ debian/setup/devel:
   opensp \
   pkg-config \
   sgmlspl \
+\
+  gpiod \
+  libgpiod-dev \
+  libgpiod-doc
 # EOL
 
 debian/setup/x11: /etc/debian_version
