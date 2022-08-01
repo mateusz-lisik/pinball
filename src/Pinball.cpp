@@ -273,7 +273,8 @@ protected:
     case 4: w = 800; h = 600; break;
     case 5: w = 1024; h = 768; break;
     case 6: w = 1280; h = 1024; break;
-    case 7: w = 1920; h = 1200; break;
+    case 7: w = 1920; h = 1080; break;
+    case 8: w = 1920; h = 1200; break;
     default: w = 640; h = 480;
     }
     if (config->getWidth() != w) {
@@ -646,6 +647,7 @@ MenuItem* createMenus(Engine * engine) {
   menusize->addText(  "screen size:  800x600");
   menusize->addText(  "screen size: 1024x768");
   menusize->addText(  "screen size:1280x1024");
+  menusize->addText(  "screen size:1920x1080");
   menusize->addText(  "screen size:1920x1200");
   menugfx->addMenuItem(menusize);
 
