@@ -20,7 +20,7 @@
 #include "Private.h"
 #include "Engine.h"
 #include "Camera.h"
-#include "Keyboard.h"
+#include "Input.h"
 #include "AlignVisitor.h"
 #include "AllegroVisitor.h"
 #include "AmbientLightVisitor.h"
@@ -98,7 +98,8 @@ Engine::Engine(int & argc, char *argv[])
     install_int(fctCallBack, 10); // 100 tick per sec
 #endif
   }
-	
+
+  p_Input = Input::getInstance();
   SoundUtil::getInstance()->applyConfigVolume();
   //  	if (config->getSound() != 0 || config->getMusic() != 0) {
   //  		SoundUtil::getInstance()->initSound();
@@ -338,7 +339,7 @@ void Engine::tick()
   if (!Config::getInstance()->useExternGL()) {
     StartProfile(KEY);
     // Check keyboard.
-    Keyboard::poll();
+    p_Input->poll();
     StopProfile();
   }
   // Perform behaviors. Behaviors must be done before transformation and collision.
@@ -475,7 +476,7 @@ void Engine::renderThreadSafe()
   //this->accept(OpenGLTransVisitor::getInstance());
 
   // The keyboard is polled here cause it is not allowed get polled from fctThread
-  Keyboard::poll();
+  p_Input->poll();
 
   this->resumeTickThread();
 }

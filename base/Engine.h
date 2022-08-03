@@ -74,6 +74,7 @@ protected:
 private:
   static float m_fFps;
   static Engine * p_Engine;
+  Input* p_Input;
 };
 
 #endif // ENGINE_H

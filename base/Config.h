@@ -129,6 +129,7 @@ class Config {
 
   // Keep the high scores for the current table
   multimap<int, string> m_mapHighScores;
+  int m_iGpioBindings[4];
 
 public:
   static bool create_directories(std::string const & path,

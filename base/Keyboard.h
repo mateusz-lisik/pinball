@@ -125,6 +125,7 @@ class Keyboard {
   static void poll();
   static bool isKeyDown(EMKey piKey);
   static EMKey waitForKey();
+  static void generate(EMKey sym, Uint8 state);
   static void generate(EMKey sym);
   static void changeKey(char const *name, bool pressed=true);
 #if EM_USE_SDL

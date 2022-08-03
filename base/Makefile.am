@@ -37,7 +37,9 @@ Sound.cpp \
 SoundUtil.cpp \
 SoundVisitor.cpp \
 TextureUtil.cpp \
-TransformVisitor.cpp
+TransformVisitor.cpp \
+GPIO.cpp \
+Input.cpp
 
 pininclude_HEADERS = \
 AlignVisitor.h \
@@ -73,4 +75,6 @@ SoundVisitor.h \
 StateMachine.h \
 TextureUtil.h \
 TransformVisitor.h \
-Visitor.h
+Visitor.h \
+GPIO.h \
+Input.h
