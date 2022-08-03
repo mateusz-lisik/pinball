@@ -66,6 +66,10 @@ class Config {
   inline void setView(int const view) { m_iView = view; };
   inline void setShowFPS(bool const fps) { m_bShowFPS = fps; };
   inline bool getShowFPS() { return m_bShowFPS; };
+
+  inline void setHighScoresEnabled(bool const highScoresEnabled) { m_bHighScoresEnabled = highScoresEnabled; };
+  inline bool isHighScoresEnabled() { return m_bHighScoresEnabled; };
+
   /** This will NOT set the engine to full screen. You have to do
    * that manually. It only updates the config class, (ie, reading writing
 	 * to config file). */
@@ -112,6 +116,7 @@ class Config {
   int m_iMusic;
   bool m_bShowFPS;
   bool m_bFullScreen;
+  bool m_bHighScoresEnabled;
   /// executable dir (maindir on w32)
   string m_sExeDir;
   string m_sDataDir;

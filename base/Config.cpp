@@ -71,6 +71,7 @@ void Config::setDefault() {
   this->setBrightness(0.5f);
   this->setShowFPS(false);
   this->setFire(false);
+  this->setHighScoresEnabled(true);
 
   string const leftflip("leftflip");
   string const rightflip("rightflip");
@@ -89,13 +90,13 @@ void Config::setDefault() {
   this->setKey(reset, SDLK_r); // !rzr why not use Return
 }
 
-void Config::setDataDir(const char* ch) { 
-  m_sDataDir = string(ch); 
+void Config::setDataDir(const char* ch) {
+  m_sDataDir = string(ch);
   m_sDataSubDir = m_sDataDir + "/" + m_sSubDir;
 }
 
-void Config::setSubDir(const char* ch) { 
-  m_sSubDir = string(ch); 
+void Config::setSubDir(const char* ch) {
+  m_sSubDir = string(ch);
   m_sDataSubDir = m_sDataDir + "/" + m_sSubDir;
 }
 
@@ -189,16 +190,16 @@ bool Config::create_directories(std::string const & path, mode_t mode)
   return true;
 }
 
-  
+
 void Config::saveConfig()
 {
-  string const dirname = string(getenv("HOME") ? : ".") + "/.config/emilia/"; 
+  string const dirname = string(getenv("HOME") ? : ".") + "/.config/emilia/";
   string const filename = dirname + string(PACKAGE_NAME);
-  
+
   if (! Config::create_directories(dirname)) {
     cerr << "error: io: Can't create directory \'" << dirname << "\'" << endl;
   }
-  
+
   ofstream file(filename.c_str());
   if (!file) {
     cerr << "Couldn't open config file: " << filename << endl;
@@ -235,7 +236,7 @@ void Config::loadConfig() {
   // loading default fixes possible problems with missing values in config file
   this->setDefault();
 
-  string dirname = string(".config/emilia/"); 
+  string dirname = string(".config/emilia/");
   string filename = string(PACKAGE_NAME);
 
 #if HAVE_SYS_STAT_H && HAVE_SYS_TYPES_H
@@ -292,6 +293,10 @@ void Config::loadConfig() {
       file >> str;
       if (str == "0") this->setShowFPS(false);
       else this->setShowFPS(true);
+    } else if (str == "highscores_enabled:") {
+        file >> str;
+        if (str == "0") this->setHighScoresEnabled(false);
+        else this->setHighScoresEnabled(true);
     } else if (str == "fire:") {
       file >> str;
       if (str == "0") this->setFire(false);
@@ -326,10 +331,10 @@ void Config::loadConfig() {
   //EM_CERR("- Config::loadConfig");
 }
 
-void Config::setSize(int const w, int h) { 
+void Config::setSize(int const w, int h) {
   if ( h == 0 ) { h = w; }
-  m_iWidth = EM_MIN(1600, EM_MAX(100,w)); 
-  m_iHeight = EM_MIN(1200, EM_MAX(100,h)); 
+  m_iWidth = EM_MIN(1600, EM_MAX(100,w));
+  m_iHeight = EM_MIN(1200, EM_MAX(100,h));
   m_iWidthDiv2 = m_iWidth/2;
   m_iHeightDiv2 = m_iHeight/2;
 }
@@ -347,7 +352,7 @@ void Config::loadArgs(int & argc, char *argv[]) {
 #endif //!-rzr
 
   int a = 1;
-  while (a < argc) { 
+  while (a < argc) {
     //  for (int a=1; a<argc; a++) {
     if (strcmp(argv[a], "-dir") == 0) {
       cout << EM_DATADIR << endl;
@@ -407,8 +412,8 @@ void Config::loadArgs(int & argc, char *argv[]) {
 }
 
 ///!+rzr this workaround Full path to relative ones, usefull for windows port
-bool isAbsolutePath(char const * const argv0 ) ; 
-bool isAbsolutePath(char const * const argv0 ) 
+bool isAbsolutePath(char const * const argv0 ) ;
+bool isAbsolutePath(char const * const argv0 )
 {
   //EM_COUT(" check root drive c:\\ // absolute path -  check for wine ?", 42);
   bool t = false;
@@ -416,17 +421,17 @@ bool isAbsolutePath(char const * const argv0 )
   // assert (strlen (argv0) > 3 );
   if ( ( *(argv0 +1) == ':' ) && ( *(argv0 +2)  == '\\' ) )
     return  true;
-#endif 
+#endif
   if ( *argv0  == '/' )  // WIN32 @ unix wine/ cygwine
     t = true;
   // check for macs, amigas  etc
   //cout<<"- isAbsolutePath"<<endl;
   return t;
 }
-/// TODO; make it more robust for stranges paths 
+/// TODO; make it more robust for stranges paths
 /// (ie "c:\\d/i//r\like\\\\this/\\/") , wine virtual pc etc
 void Config::setPaths(char const * const argv0) {
-  // EM_CERR("+ Config::setPath"); 
+  // EM_CERR("+ Config::setPath");
   //!+rzr : make it work also in relative paths use
   // and "/long path/quoted/paths/" etc
   //EM_COUT( argv0 , 0);
@@ -434,21 +439,21 @@ void Config::setPaths(char const * const argv0) {
   m_sExeDir = "./";
   if ( *( m_sDataDir.c_str() ) != '/' ) {
     //cout<<"relative to exe file"<<endl;
-    char const * ptr = (strrchr(argv0,'/')); // unix /cygwin / check win32 
+    char const * ptr = (strrchr(argv0,'/')); // unix /cygwin / check win32
 #ifdef WIN32
-    char const * const ptrw = 0;    ptrw = (strrchr(argv0,'\\')); 
-#else 
+    char const * const ptrw = 0;    ptrw = (strrchr(argv0,'\\'));
+#else
     char const * const ptrw = 0;
 #endif //TODO: MacOS file sep ':'   
     if ( ptrw > ptr ) ptr = ptrw;
     //    assert( (*ptr != 0) );
     string path( argv0 , ptr - argv0 );
-    //EM_COUT( path , 42);    
+    //EM_COUT( path , 42);
     if ( isAbsolutePath( argv0 ) ) {
       m_sExeDir = path ;
-    } else {  
+    } else {
       //EM_COUT("relative path from cwd",42);
-      char cwd[256]; 
+      char cwd[256];
       getcwd(cwd,256); // TODO check for buffer overflow
       m_sExeDir = string(cwd) + '/' +  path ;
     }
@@ -457,13 +462,13 @@ void Config::setPaths(char const * const argv0) {
     m_sDataDir =  string(EM_DATADIR) ;
   }
   m_sDataSubDir = m_sDataDir  + "/"  + m_sSubDir ;
-  
+
 #ifdef WIN32 // !+rzr Path are backlashed 
   // but works fine that way on wine and win98
   // m_sDataSubDir.replace (  m_sDataSubDir.find(/,0) , 1,   \\  );
   // m_sDataDir.replace (  m_sDataDir.find(\\,0) , 1,   /  );
-#endif 
- 
+#endif
+
   // EM_CERR("- Config::setPath"); // EM_CERR( m_sExeDir); EM_CERR( m_sDataDir);
 } //!-rzr
 

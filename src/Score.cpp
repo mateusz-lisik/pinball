@@ -114,7 +114,7 @@ void Score::StdOnSignal() {
 
     //cout<<" TODO:give (only) one extra ball if high score"<<endl; //!rzr
     
-    if(this->testForHighScore()) {
+    if(Config::getInstance()->isHighScoresEnabled() && this->testForHighScore()) {
       this->setText1("last score was a High Score!");
     } else {
       this->setText1("");
