@@ -257,12 +257,14 @@ void Config::loadConfig() {
 
   filename = dirname  + filename;
 
+  cout << "Loading config from file: " << filename << endl;
   ifstream file(filename.c_str());
   if (!file) {
+    cout << "Cannot open file, falling back to: " << PINBALL_CONFIG_FILE << endl;
     file.open(PINBALL_CONFIG_FILE);
   }
   if (!file) {
-    cerr << "Couldn't open config file: " << filename << endl;
+    cerr << "Couldn't open config file: " << PINBALL_CONFIG_FILE << endl;
     cerr << "Using default values" <<  endl;
     return;
   }
