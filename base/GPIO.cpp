@@ -8,20 +8,24 @@
 #include "Config.h"
 
 GPIO::GPIO() {
-    Config::getInstance();
-}
-
-void GPIO::setup() {
     chip = gpiod_chip_open("/dev/gpiochip0");
+
     if (!chip) {
         cerr << "Cannot open gpio chip" << endl;
+    }
+
+    int *bindings = Config::getInstance()->getGpioBindings();
+    if(gpiod_chip_get_lines(chip, bindings, 4, lines) == -1) {
+        cerr << "gpio cannot get lines" << endl;
+
     }
 }
 
 void GPIO::poll() {
     int values[4];
     if (gpiod_line_get_value_bulk(&bulk, values) == -1) {
-        //todo error handling
+        cerr << "gpio polling failed" << endl;
+
     }
 
     for (int i = 0; i < 4; i++) {

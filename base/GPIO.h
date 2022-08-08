@@ -6,6 +6,8 @@
 #define PINBALL_GPIO_H
 
 
+#include "Keyboard.h"
+
 #define EM_GPIO_LEFT_PADDLE     0
 #define EM_GPIO_RIGHT_PADDLE    1
 #define EM_GPIO_RESET_BUTTON    2
@@ -22,9 +24,9 @@ public:
     void poll();
 
 private:
-    struct gpiod_chip *chip;
-    struct gpiod_line_bulk lines;
-    struct gpiod_line_bulk bulk;
+    struct gpiod_chip* chip;
+    struct gpiod_line_bulk* lines;
+    struct gpiod_line_bulk* bulk;
 
     EMKey getKeyFromInputLine(int line);
 

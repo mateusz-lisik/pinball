@@ -88,6 +88,11 @@ void Config::setDefault() {
   this->setKey(rightnudge, SDLK_RCTRL);
   this->setKey(launch, SDLK_RETURN);
   this->setKey(reset, SDLK_r); // !rzr why not use Return
+
+  this->m_iGpioBindings[0] = 4;
+  this->m_iGpioBindings[1] = 4;
+  this->m_iGpioBindings[2] = 5;
+  this->m_iGpioBindings[3] = 6;
 }
 
 void Config::setDataDir(const char* ch) {

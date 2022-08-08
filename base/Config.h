@@ -70,6 +70,8 @@ class Config {
   inline void setHighScoresEnabled(bool const highScoresEnabled) { m_bHighScoresEnabled = highScoresEnabled; };
   inline bool isHighScoresEnabled() { return m_bHighScoresEnabled; };
 
+  inline int* getGpioBindings() { return m_iGpioBindings; };
+
   /** This will NOT set the engine to full screen. You have to do
    * that manually. It only updates the config class, (ie, reading writing
 	 * to config file). */
@@ -84,6 +86,7 @@ class Config {
   /** This will NOT set the brightness in the engine. You
    * have to do that manually. */
   inline void setBrightness(float const b) { m_fBrightness = b; };
+
   /** Gets the key code from a key identifier. (e.g. "leftnudge" -> 306)*/
   EMKey getKey(string const & str);
   /** Gets the common name from a key code. (e.g. 306 -> "left ctrl") */
@@ -129,7 +132,7 @@ class Config {
 
   // Keep the high scores for the current table
   multimap<int, string> m_mapHighScores;
-  int m_iGpioBindings[4];
+  int m_iGpioBindings[4] = {};
 
 public:
   static bool create_directories(std::string const & path,
