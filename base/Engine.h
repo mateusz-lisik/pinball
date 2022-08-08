@@ -15,6 +15,7 @@
 
 #include "TextureUtil.h"
 #include "Group.h"
+#include "Input.h"
 
 class Light;
 class Camera;
