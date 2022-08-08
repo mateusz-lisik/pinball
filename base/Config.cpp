@@ -222,6 +222,7 @@ void Config::saveConfig()
     file << "texture_filter: " << "-1" << endl;
   }
   file << "showfps: " << (m_bShowFPS ? "1" : "0") << endl;
+  file << "highscores_enabled: " << m_bHighScoresEnabled << endl;
   file << "fire: " << (m_bFire ? "1" : "0") << endl;
 
   map<string, EMKey>::iterator iter = m_hKey.begin();
