@@ -4,6 +4,7 @@
 
 #include "GPIO.h"
 #include <gpiod.h>
+#include <iostream>
 #include "Keyboard.h"
 #include "Config.h"
 
@@ -15,7 +16,7 @@ GPIO::GPIO() {
     }
 
     int *bindings = Config::getInstance()->getGpioBindings();
-    if(gpiod_chip_get_lines(chip, bindings, 4, lines) == -1) {
+    if(gpiod_chip_get_lines(chip, (unsigned int*) bindings, 4, lines) == -1) {
         cerr << "gpio cannot get lines" << endl;
 
     }
@@ -23,7 +24,7 @@ GPIO::GPIO() {
 
 void GPIO::poll() {
     int values[4];
-    if (gpiod_line_get_value_bulk(&bulk, values) == -1) {
+    if (gpiod_line_get_value_bulk(bulk, values) == -1) {
         cerr << "gpio polling failed" << endl;
 
     }
@@ -55,6 +56,6 @@ void GPIO::shutdown() {
     }
 
     if (lines) {
-        gpiod_line_release_bulk(&lines);
+        gpiod_line_release_bulk(lines);
     }
 }

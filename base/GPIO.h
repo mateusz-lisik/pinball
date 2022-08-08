@@ -5,8 +5,11 @@
 #ifndef PINBALL_GPIO_H
 #define PINBALL_GPIO_H
 
-
+#include <iostream>
+#include "Private.h"
 #include "Keyboard.h"
+#define EMKey SDL_Keycode
+
 
 #define EM_GPIO_LEFT_PADDLE     0
 #define EM_GPIO_RIGHT_PADDLE    1
@@ -16,8 +19,6 @@
 
 class GPIO {
     GPIO();
-    void setup();
-
     void shutdown();
 
 public:

@@ -6,6 +6,7 @@
 #define PINBALL_INPUT_H
 
 
+#include "Private.h"
 #include "Keyboard.h"
 #include "GPIO.h"
 
