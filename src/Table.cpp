@@ -155,6 +155,9 @@ int Table::loadLevel(Engine * engine, const char * subdir) {
   groupCT->add(groupCR);
   groupCR->setCamera(camera);
 
+  groupCT->setTranslation(0, 0, 3);
+
+
   Light* cl = new Light(1, 0.05f, 0, 1,1,1);
   cl->unsetProperty(EM_USE_DIFFUSE);
   groupCR->setLight(cl);
