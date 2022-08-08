@@ -6,11 +6,14 @@
 #define PINBALL_INPUT_H
 
 
+#include "Keyboard.h"
+#include "GPIO.h"
+
 class Input {
 public:
     Input();
     ~Input();
-    poll();
+    void poll();
     static Input * getInstance();
 
 private:

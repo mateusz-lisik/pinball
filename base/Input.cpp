@@ -7,10 +7,10 @@
 #include "Config.h"
 
 Input::Input() {
-    keyboard = Keyboard();
+    keyboard = new Keyboard();
 }
 
-int Input::poll() {
+void Input::poll() {
     Keyboard::poll();
     if (gpio) {
         gpio->poll();
@@ -18,9 +18,13 @@ int Input::poll() {
 }
 
 Input *Input::getInstance() {
-    if (instance == null) {
-        instance = Input();
+    if (instance == nullptr) {
+        instance = new Input();
     }
 
     return instance;
+}
+
+Input::~Input() {
+
 }

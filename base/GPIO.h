@@ -15,8 +15,11 @@
 class GPIO {
     GPIO();
     void setup();
-    void poll();
+
     void shutdown();
+
+public:
+    void poll();
 
 private:
     struct gpiod_chip *chip;

@@ -8,7 +8,7 @@
 #include "Config.h"
 
 GPIO::GPIO() {
-    Config::getInstance().get
+    Config::getInstance();
 }
 
 void GPIO::setup() {
