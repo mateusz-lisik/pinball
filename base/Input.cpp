@@ -6,6 +6,9 @@
 #include "Keyboard.h"
 #include "Config.h"
 
+Input* Input::instance = nullptr;
+
+
 Input::Input() {
     keyboard = new Keyboard();
 }
