@@ -30,7 +30,10 @@ void GPIO::poll() {
     }
 
     for (int i = 0; i < 4; i++) {
-        Keyboard::generate(getKeyFromInputLine(i, values[i]));
+        const int inputKey = getKeyFromInputLine(i);
+        cout << "key: " << inputKey << endl;
+
+        Keyboard::generate(inputKey, values[i]);
     }
 }
 
