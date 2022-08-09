@@ -259,6 +259,8 @@ AM_PATH_CPPUNIT(1.8.0, [
 
 fi
 
+LIBS="$LIBS -lgpiod"
+
 dnl ********************************************
 dnl HEADERS ************************************
 dnl Checks for header files.
