@@ -18,8 +18,8 @@ void Input::poll() {
 }
 
 Input *Input::getInstance() {
-    if (Input::instance == nullptr) {
-        Input::instance = new Input();
+    if (instance == nullptr) {
+        instance = new Input();
     }
 
     return Input::instance;

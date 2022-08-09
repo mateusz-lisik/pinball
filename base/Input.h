@@ -15,7 +15,7 @@ public:
     Input();
     ~Input();
     void poll();
-    static Input * getInstance();
+    static Input *getInstance();
 
 private:
     Keyboard* keyboard;
