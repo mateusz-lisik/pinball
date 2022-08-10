@@ -11,6 +11,8 @@ Input* Input::instance = nullptr;
 
 Input::Input() {
     keyboard = new Keyboard();
+
+    gpio = new GPIO();
 }
 
 void Input::poll() {

@@ -29,24 +29,24 @@ void GPIO::poll() {
 
     }
 
-    for (int i = 0; i < 4; i++) {
-        const int inputKey = getKeyFromInputLine(i);
-        cout << "key: " << inputKey << endl;
+    for (int & value : values) {
+        const int inputKey = getKeyFromInputLine(value);
+        cout << "key: " << inputKey << "value: " << value << endl;
 
-        Keyboard::generate(inputKey, values[i]);
+        Keyboard::generate(inputKey, value);
     }
 }
 
 int GPIO::getKeyFromInputLine(int line) {
     switch (line) {
         case EM_GPIO_RIGHT_PADDLE:
-            return 0;
+            return 1;
         case EM_GPIO_LEFT_PADDLE:
-            return 0;
+            return 2;
         case EM_GPIO_RESET_BUTTON:
-            return 0;
+            return 3;
         case EM_GPIO_START_BUTTON:
-            return 0;
+            return 4;
         default:
             return -1;
     }

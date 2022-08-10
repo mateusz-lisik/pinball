@@ -18,10 +18,10 @@
 
 
 class GPIO {
-    GPIO();
     void shutdown();
 
 public:
+    GPIO();
     void poll();
 
 private:
